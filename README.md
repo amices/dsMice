@@ -19,7 +19,7 @@ Installation
 
 The following code installs the `dsMice` package on the node server:
 
-`r   install.packages("devtools")   devtools::install_github("stefvanbuuren/dsMice")`
+`r   devtools::install_github("stefvanbuuren/dsMice")`
 
 In order to work well, the end user should that the [`dsMiceClient`](https://github.com/stefvanbuuren/dsMiceClient) package installed locally.
 

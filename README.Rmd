@@ -40,7 +40,6 @@ owner installs on the server.
 The following code installs the `dsMice` package on the node server:
 
   ```{r eval = FALSE}
-install.packages("devtools")
 devtools::install_github("stefvanbuuren/dsMice")
 ```
 
