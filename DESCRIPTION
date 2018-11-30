@@ -1,7 +1,7 @@
 Package: dsMice
 Type: Package
 Title: DataSHIELD server-side functions for the mice package
-Version: 0.1.0
+Version: 0.1.1
 Authors@R: person("Stef", "van Buuren", email = "stef.vanbuuren@tno.nl", role = c("aut", "cre"))
 Description: The dsMice package adds functionality to perform multiple imputation 
     by chained equations (mice) for federated analysis within the DataSHIELD framework.
