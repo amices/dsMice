@@ -14,7 +14,7 @@
 is.naDS <- function(x) {
 
   # check if the input vector is valid (i.e. meets DataSHIELD privacy criteria)
-  check <- dsBase::isValidDS(x)
+  check <- isValidDS(x)
 
   # return missing value if the input vector is not valid
   if (check) {
