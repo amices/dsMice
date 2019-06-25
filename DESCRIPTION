@@ -2,22 +2,67 @@ Package: dsMice
 Type: Package
 Title: DataSHIELD server-side functions for the mice package
 Version: 0.2.0
-Maintainer: <datashield@obiba.org>
+Maintainer: <<datashield@obiba.org>
 Author: <datashield@obiba.org>
+License: GPL-3
 Description: The dsMice package adds functionality to perform multiple imputation 
     by chained equations (mice) for federated analysis within the DataSHIELD framework.
     This package contains function that need to run on the server side.
-Depends:  R (>= 3.5), 
-          mice (>= 3.0)
-Imports:  dsBase
-Suggests: testthat
-AssignMethods: miceDS,
-               mice.midsDS,
-               is.naDS
+Imports: Rdpack
+RdMacros: Rdpack
+Roxygen: list(markdown = TRUE)
+AggregateMethods: matrixProductDS,
+    matrixMethod,
+    getVarbyFormula,
+    isValidDS,
+    getVarByName,
+    bindyDS,
+    getImpute,
+    getHistogram,
+    getNa, 
+    miceDS,
+    identifyNas,
+    nimp,
+    md.patternDS,
+    getXValuesComplete,
+    partialDataset
 Options: datashield.privacyLevel=5
-License: GPL-3
 Encoding: UTF-8
 LazyData: true
 URL: http://stefvanbuuren.github.io/dsMice/
 BugReports: https://github.com/stefvanbuuren/dsMice/issues
-RoxygenNote: 6.1.0
+RoxygenNote: 6.1.1
+Collate: 
+    'checkClass.R'
+    'extract.R'
+    'findLoginObjects.R'
+    'getImpute.R'
+    'getHistogram.R'
+    'getOpals.R'
+    'getVarByName.R'
+    'getVarbyFormula.R'
+    'isAssigned.R'
+    'isDefined.R'
+    'isValidDS.R'
+    'matrixMethod.R'
+    'setFilterDS.R'
+    'getNa.R'
+    'miceDS.R'
+    'check.dataform.R'
+    'check.m.R'
+    'check.predictorMatrixDS.R'
+    'make.predictorMatrixDS.R'
+    'check.blocksDS.R'
+    'construct.blocksDS.R'
+    'make.blocksDS.R'
+    'name.blocksDS.R'
+    'make.visitSequence.R'
+    'check.visitSequence.R'
+    'identifyNas.R'
+    'nimp.R'
+    'md.patternDS.R'
+    'getXValuesComplete.R'
+    'partialDataset.R'
+    'imports.R'
+    'is.naDS.R'
+    'mice.midsDS.R'

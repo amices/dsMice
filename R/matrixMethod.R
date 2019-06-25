@@ -28,7 +28,7 @@
 #' @section Dependencies:
 #' \code{\link{getVarbyFormula}}
 #' @references
-#' \insertRef{walpole1993probability}{dsStatisticalServer}
+#' \insertRef{walpole1993probability}{dsMice}
 #'
 #' @export
 #'
