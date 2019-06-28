@@ -19,6 +19,23 @@ Installation
 
 The following code installs the `dsMice` package on the node server:
 
+Install the `opaladmin` dependence using the R console.
+
+```R
+install.packages('opaladmin', repos=c('http://cran.rstudio.com/', 'http://cran.obiba.org'), dependencies=TRUE)
+```
+Start the **install_server_packs.R** R script calling the **opal** and **opaladmin** library.
+```R
+library(opal)
+library(opaladmin)
+```
+Connect to data nodes.
+```R
+o <- opal.login(username = 'user', password = 'pass', url = "https://node-address-1")
+o2 <- opal.login(username = 'user', password = 'pass', url = "https://node-address-2")
+o3 <- opal.login(username = 'user', password = 'pass', url = 'https://node-address-3')
+```
+
 `r   devtools::install_github("stefvanbuuren/dsMice")`
 
 In order to work well, the end user should that the [`dsMiceClient`](https://github.com/stefvanbuuren/dsMiceClient) package installed locally.
