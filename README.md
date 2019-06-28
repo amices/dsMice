@@ -38,9 +38,9 @@ o3 <- opal.login(username = 'user', password = 'pass', url = 'https://node-addre
 
 Remove old version of the package (if you have installed it before).
 ```R
-if ("distStatsServer" %in% rownames(installed.packages())) dsadmin.remove_package(o, 'distStatsServer')
-if ("distStatsServer" %in% rownames(installed.packages())) dsadmin.remove_package(o2, 'distStatsServer')
-if ("distStatsServer" %in% rownames(installed.packages())) dsadmin.remove_package(o3, 'distStatsServer')
+if ("dsMice" %in% rownames(installed.packages())) dsadmin.remove_package(o, 'dsMice')
+if ("dsMice" %in% rownames(installed.packages())) dsadmin.remove_package(o2, 'dsMice')
+if ("dsMice" %in% rownames(installed.packages())) dsadmin.remove_package(o3, 'dsMice')
 ```
 
 Install the package **devtools** into data node (only for the first run).
@@ -60,16 +60,16 @@ opal.execute(o3, cmd)
 
 Install the package into data nodes
 ```R
-dsadmin.install_package(o, 'distStatsServer')
-dsadmin.install_package(o2, 'distStatsServer')
-dsadmin.install_package(o3, 'distStatsServer')
+dsadmin.install_package(o, 'dsMice')
+dsadmin.install_package(o2, 'dsMice')
+dsadmin.install_package(o3, 'dsMice')
 ```
 
 Publish the package's DataSHIELD methods
 ```R
-dsadmin.set_package_methods(o, 'distStatsServer')
-dsadmin.set_package_methods(o2, 'distStatsServer')
-dsadmin.set_package_methods(o3, 'distStatsServer')
+dsadmin.set_package_methods(o, 'dsMice')
+dsadmin.set_package_methods(o2, 'dsMice')
+dsadmin.set_package_methods(o3, 'dsMice')
 ```
 
 Logout from Opal
