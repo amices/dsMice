@@ -24,7 +24,7 @@ Install the `opaladmin` dependence using the R console.
 ```R
 install.packages('opaladmin', repos=c('http://cran.rstudio.com/', 'http://cran.obiba.org'), dependencies=TRUE)
 ```
-Start the **install_server_packs.R** R script calling the **opal** and **opaladmin** library.
+Call the `opal` and `opaladmin` library.
 ```R
 library(opal)
 library(opaladmin)
@@ -36,7 +36,48 @@ o2 <- opal.login(username = 'user', password = 'pass', url = "https://node-addre
 o3 <- opal.login(username = 'user', password = 'pass', url = 'https://node-address-3')
 ```
 
-`r   devtools::install_github("stefvanbuuren/dsMice")`
+Remove old version of the package (if you have installed it before).
+```R
+if ("distStatsServer" %in% rownames(installed.packages())) dsadmin.remove_package(o, 'distStatsServer')
+if ("distStatsServer" %in% rownames(installed.packages())) dsadmin.remove_package(o2, 'distStatsServer')
+if ("distStatsServer" %in% rownames(installed.packages())) dsadmin.remove_package(o3, 'distStatsServer')
+```
+
+Install the package **devtools** into data node (only for the first run).
+```R
+oadmin.install_devtools(o)
+oadmin.install_devtools(o2)
+oadmin.install_devtools(o3)
+```
+
+Download the package from Git repository to data nodes.
+```R
+cmd <- paste('devtools::install_github("stefvanbuuren/dsMice")')
+opal.execute(o, cmd)
+opal.execute(o2, cmd)
+opal.execute(o3, cmd)
+```
+
+Install the package into data nodes
+```R
+dsadmin.install_package(o, 'distStatsServer')
+dsadmin.install_package(o2, 'distStatsServer')
+dsadmin.install_package(o3, 'distStatsServer')
+```
+
+Publish the package's DataSHIELD methods
+```R
+dsadmin.set_package_methods(o, 'distStatsServer')
+dsadmin.set_package_methods(o2, 'distStatsServer')
+dsadmin.set_package_methods(o3, 'distStatsServer')
+```
+
+Logout from Opal
+```R
+opal.logout(o)
+opal.logout(o2)
+opal.logout(o3)
+```
 
 In order to work well, the end user should that the [`dsMiceClient`](https://github.com/stefvanbuuren/dsMiceClient) package installed locally.
 
