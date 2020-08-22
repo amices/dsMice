@@ -1,16 +1,16 @@
-#' Construct blocks from \code{formulas} and \code{predictorMatrix} 
+#' Construct blocks from \code{formulas} and \code{predictorMatrix}
 #'
 #' This helper function attempts to find blocks of variables in the
 #' specification of the \code{formulas} and/or \code{predictorMatrix}
-#' objects. Blocks specified by \code{formulas} may consist of 
+#' objects. Blocks specified by \code{formulas} may consist of
 #' multiple variables. Blocks specified by \code{predictorMatrix} are
-#' assumed to consist of single variables. Any duplicates in names are 
+#' assumed to consist of single variables. Any duplicates in names are
 #' removed, and the formula specification is preferred.
-#' \code{predictorMatrix} and \code{formulas}. When both arguments 
-#' specify models for the same block, the model for the 
-#' \code{predictMatrix} is removed, and priority is given to the 
-#' specification given in \code{formulas}. 
-#' @inheritParams mice 
+#' \code{predictorMatrix} and \code{formulas}. When both arguments
+#' specify models for the same block, the model for the
+#' \code{predictMatrix} is removed, and priority is given to the
+#' specification given in \code{formulas}.
+#' @inheritParams mice
 #' @return A \code{blocks} object.
 #' @seealso \code{\link{make.blocks}}, \code{\link{name.blocks}}
 #' @examples
@@ -19,7 +19,7 @@
 #' construct.blocks(formulas = form, pred = pred)
 #' @export
 construct.blocksDS <- function(formulas = NULL, predictorMatrix = NULL) {
-  
+
   blocks.f <- blocks.p <- NULL
   if (!is.null(formulas)) {
     if (!all(sapply(formulas, is.formula))) return(NULL)
@@ -29,7 +29,7 @@ construct.blocksDS <- function(formulas = NULL, predictorMatrix = NULL) {
     attr(blocks.f, "calltype") <- ct
     if (is.null(predictorMatrix)) return(blocks.f)
   }
-  
+
   if (!is.null(predictorMatrix)) {
     if (is.null(row.names(predictorMatrix)))
       stop("No row names in predictorMatrix", call. = FALSE)
@@ -39,14 +39,24 @@ construct.blocksDS <- function(formulas = NULL, predictorMatrix = NULL) {
     attr(blocks.p, "calltype") <- ct
     if (is.null(formulas)) return(blocks.p)
   }
-  
+
   # combine into unique blocks
   blocknames <- unique(c(names(blocks.f), names(blocks.p)))
   keep <- setdiff(blocknames, names(blocks.f))
   blocks <- c(blocks.f, blocks.p[keep])
-  ct <- c(rep("formula", length(formulas)), 
+  ct <- c(rep("formula", length(formulas)),
           rep("type", length(keep)))
   names(ct) <- names(blocks)
   attr(blocks, "calltype") <- ct
   blocks
+}
+
+is.formula <- function(x)
+{
+  inherits(x, "formula")
+}
+
+lhs <- function (x)
+{
+  all.vars(update(x, . ~ 1))
 }
