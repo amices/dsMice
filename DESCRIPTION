@@ -8,10 +8,18 @@ License: GPL-3
 Description: The dsMice package adds functionality to perform multiple imputation 
     by chained equations (mice) for federated analysis within the DataSHIELD framework.
     This package contains function that need to run on the server side.
-Imports: Rdpack
+Depends: 
+    mice
+Imports:
+    dsBase,
+    Rdpack,
+    stats
+Suggests: 
+    testthat
 RdMacros: Rdpack
 Roxygen: list(markdown = TRUE)
-AggregateMethods: matrixProductDS,
+AggregateMethods: 
+    matrixProductDS,
     matrixMethod,
     getVarbyFormula,
     isValidDS,
@@ -29,9 +37,9 @@ AggregateMethods: matrixProductDS,
 Options: datashield.privacyLevel=5
 Encoding: UTF-8
 LazyData: true
-URL: http://stefvanbuuren.github.io/dsMice/
-BugReports: https://github.com/stefvanbuuren/dsMice/issues
-RoxygenNote: 6.1.1
+URL: http://amices.github.io/dsMice/
+BugReports: https://github.com/amices/dsMice/issues
+RoxygenNote: 7.1.1
 Collate: 
     'checkClass.R'
     'extract.R'
