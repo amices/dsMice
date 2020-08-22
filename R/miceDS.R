@@ -21,7 +21,7 @@
 #'The data may contain categorical variables that are used in a regressions on
 #'other variables. The algorithm creates dummy variables for the categories of
 #'these variables, and imputes these from the corresponding categorical
-#'variable. 
+#'variable.
 #'
 #'Built-in univariate imputation methods are:
 #'
@@ -94,44 +94,44 @@
 #'visited. In that way, deterministic relation between columns will always be
 #'synchronized.
 #'
-#'#'A new argument \code{ls.meth} can be parsed to the lower level 
-#'\code{.norm.draw} to specify the method for generating the least squares 
-#'estimates and any subsequently derived estimates. Argument \code{ls.meth} 
-#'takes one of three inputs: \code{"qr"} for QR-decomposition, \code{"svd"} for 
-#'singular value decomposition and \code{"ridge"} for ridge regression. 
-#'\code{ls.meth} defaults to \code{ls.meth = "qr"}. 
+#'#'A new argument \code{ls.meth} can be parsed to the lower level
+#'\code{.norm.draw} to specify the method for generating the least squares
+#'estimates and any subsequently derived estimates. Argument \code{ls.meth}
+#'takes one of three inputs: \code{"qr"} for QR-decomposition, \code{"svd"} for
+#'singular value decomposition and \code{"ridge"} for ridge regression.
+#'\code{ls.meth} defaults to \code{ls.meth = "qr"}.
 #'
 #'\emph{Auxiliary predictors in formulas specification: }
-#'For a given block, the \code{formulas} specification takes precedence over 
-#'the corresponding row in the \code{predictMatrix} argument. This 
+#'For a given block, the \code{formulas} specification takes precedence over
+#'the corresponding row in the \code{predictMatrix} argument. This
 #'precedence is, however, restricted to the subset of variables
-#'specified in the terms of the block formula. Any 
+#'specified in the terms of the block formula. Any
 #'variables not specified by \code{formulas} are imputed
-#'according to the \code{predictMatrix} specification. Variables with 
-#'non-zero \code{type} values in the \code{predictMatrix} will 
-#'be added as main effects to the \code{formulas}, which will 
+#'according to the \code{predictMatrix} specification. Variables with
+#'non-zero \code{type} values in the \code{predictMatrix} will
+#'be added as main effects to the \code{formulas}, which will
 #'act as supplementary covariates in the imputation model. It is possible
-#'to turn off this behavior by specifying the 
+#'to turn off this behavior by specifying the
 #'argument \code{auxiliary = FALSE}.
 #'
 #'@param data A data frame or a matrix containing the incomplete data.  Missing
 #'values are coded as \code{NA}.
 #'@param m Number of multiple imputations. The default is \code{m=5}.
-#'@param where A data frame or matrix with logicals of the same dimensions 
-#'as \code{data} indicating where in the data the imputations should be 
+#'@param where A data frame or matrix with logicals of the same dimensions
+#'as \code{data} indicating where in the data the imputations should be
 #'created. The default, \code{where = is.na(data)}, specifies that the
-#'missing data should be imputed. The \code{where} argument may be used to 
+#'missing data should be imputed. The \code{where} argument may be used to
 #'overimpute observed data, or to skip imputations for selected missing values.
-#'@param blocks List of vectors with variable names per block. List elements 
-#'may be named to identify blocks. Variables within a block are 
+#'@param blocks List of vectors with variable names per block. List elements
+#'may be named to identify blocks. Variables within a block are
 #'imputed by a multivariate imputation method
-#'(see \code{method} argument). By default each variable is placed 
+#'(see \code{method} argument). By default each variable is placed
 #'into its own block, which is effectively
-#'fully conditional specification (FCS) by univariate models 
-#'(variable-by-variable imputation). Only variables whose names appear in 
-#'\code{blocks} are imputed. The relevant columns in the \code{where} 
-#'matrix are set to \code{FALSE} of variables that are not block members. 
-#'A variable may appear in multiple blocks. In that case, it is 
+#'fully conditional specification (FCS) by univariate models
+#'(variable-by-variable imputation). Only variables whose names appear in
+#'\code{blocks} are imputed. The relevant columns in the \code{where}
+#'matrix are set to \code{FALSE} of variables that are not block members.
+#'A variable may appear in multiple blocks. In that case, it is
 #'effectively re-imputed each time that it is visited.
 #'@param method Can be either a single string, or a vector of strings with
 #'length \code{length(blocks)}, specifying the imputation method to be
@@ -140,47 +140,47 @@
 #'argument is specified) depends on the measurement level of the target column,
 #'as regulated by the \code{defaultMethod} argument. Columns that need
 #'not be imputed have the empty method \code{""}. See details.
-#'@param predictorMatrix A numeric matrix of \code{length(blocks)} rows 
-#'and \code{ncol(data)} columns, containing 0/1 data specifying 
+#'@param predictorMatrix A numeric matrix of \code{length(blocks)} rows
+#'and \code{ncol(data)} columns, containing 0/1 data specifying
 #'the set of predictors to be used for each target column.
-#'Each row corresponds to a variable block, i.e., a set of variables 
+#'Each row corresponds to a variable block, i.e., a set of variables
 #'to be imputed. A value of \code{1} means that the column
-#'variable is used as a predictor for the target block (in the rows). 
+#'variable is used as a predictor for the target block (in the rows).
 #'By default, the \code{predictorMatrix} is a square matrix of \code{ncol(data)}
-#'rows and columns with all 1's, except for the diagonal. 
+#'rows and columns with all 1's, except for the diagonal.
 #'Note: For two-level imputation models (which have \code{"2l"} in their names)
 #'other codes (e.g, \code{2} or \code{-2}) are also allowed.
 #'@param visitSequence A vector of block names of arbitrary length, specifying the
-#'sequence of blocks that are imputed during one iteration of the Gibbs 
-#'sampler. A block is a collection of variables. All variables that are 
-#'members of the same block are imputed 
-#'when the block is visited. A variable that is a member of multiple blocks 
-#'is re-imputed within the same iteration. 
+#'sequence of blocks that are imputed during one iteration of the Gibbs
+#'sampler. A block is a collection of variables. All variables that are
+#'members of the same block are imputed
+#'when the block is visited. A variable that is a member of multiple blocks
+#'is re-imputed within the same iteration.
 #'The default \code{visitSequence = "roman"} visits the blocks (left to right)
-#'in the order in which they appear in \code{blocks}. 
-#'One may also use one of the following keywords: \code{"arabic"} 
-#'(right to left), \code{"monotone"} (ordered low to high proportion 
-#'of missing data) and \code{"revmonotone"} (reverse of monotone). 
+#'in the order in which they appear in \code{blocks}.
+#'One may also use one of the following keywords: \code{"arabic"}
+#'(right to left), \code{"monotone"} (ordered low to high proportion
+#'of missing data) and \code{"revmonotone"} (reverse of monotone).
 #'@param formulas A named list of formula's, or expressions that
 #'can be converted into formula's by \code{as.formula}. List elements
-#'correspond to blocks. The block to which the list element applies is 
+#'correspond to blocks. The block to which the list element applies is
 #'identified by its name, so list names must correspond to block names.
-#'The \code{formulas} argument is an alternative to the 
-#'\code{predictorMatrix} argument that allows for more flexibility in 
-#'specifying imputation models, e.g., for specifying interaction terms. 
-#'@param blots A named \code{list} of \code{alist}'s that can be used 
+#'The \code{formulas} argument is an alternative to the
+#'\code{predictorMatrix} argument that allows for more flexibility in
+#'specifying imputation models, e.g., for specifying interaction terms.
+#'@param blots A named \code{list} of \code{alist}'s that can be used
 #'to pass down arguments to lower level imputation function. The entries
 #'of element \code{blots[[blockname]]} are passed down to the function
 #'called for block \code{blockname}.
 #'@param post A vector of strings with length \code{ncol(data)} specifying
-#'expressions as strings. Each string is parsed and 
-#'executed within the \code{sampler()} function to post-process 
-#'imputed values during the iterations. 
+#'expressions as strings. Each string is parsed and
+#'executed within the \code{sampler()} function to post-process
+#'imputed values during the iterations.
 #'The default is a vector of empty strings, indicating no post-processing.
 #'@param defaultMethod A vector of length 4 containing the default
-#'imputation methods for 1) numeric data, 2) factor data with 2 levels, 3) 
-#'factor data with > 2 unordered levels, and 4) factor data with > 2 
-#'ordered levels. By default, the method uses 
+#'imputation methods for 1) numeric data, 2) factor data with 2 levels, 3)
+#'factor data with > 2 unordered levels, and 4) factor data with > 2
+#'ordered levels. By default, the method uses
 #'\code{pmm}, predictive mean matching (numeric data) \code{logreg}, logistic
 #'regression imputation (binary data, factor with 2 levels) \code{polyreg},
 #'polytomous regression imputation for unordered categorical data (factor > 2
@@ -200,12 +200,12 @@
 #'@param ... Named arguments that are passed down to the univariate imputation
 #'functions.
 #'
-#'@return Returns an S3 object of class \code{\link[=mids-class]{mids}}
+#'@return Returns an S3 object of class \code{\link[mice:mids-class]{mids}}
 #'        (multiply imputed data set)
 #'@author Stef van Buuren \email{stef.vanbuuren@@tno.nl}, Karin
 #'Groothuis-Oudshoorn \email{c.g.m.oudshoorn@@utwente.nl}, 2000-2010, with
-#'contributions of Alexander Robitzsch, Gerko Vink, Shahab Jolani, 
-#'Roel de Jong, Jason Turner, Lisa Doove, 
+#'contributions of Alexander Robitzsch, Gerko Vink, Shahab Jolani,
+#'Roel de Jong, Jason Turner, Lisa Doove,
 #'John Fox, Frank E. Harrell, and Peter Malewski.
 #'@seealso \code{\link[=mids-class]{mids}}, \code{\link{with.mids}},
 #'\code{\link{set.seed}}, \code{\link{complete}}
@@ -214,7 +214,7 @@
 #'Statistical Software}, \bold{45}(3), 1-67.
 #'\url{https://www.jstatsoft.org/v45/i03/}
 #'
-#'Van Buuren, S. (2018). 
+#'Van Buuren, S. (2018).
 #'\href{https://stefvanbuuren.name/fimd/sec-FCS.html#sec:MICE}{\emph{Flexible Imputation of Missing Data. Second Edition.}}
 #'Chapman & Hall/CRC. Boca Raton, FL.
 #'
@@ -256,7 +256,7 @@
 #'
 #'
 
-miceDS <- function(vars=NULL, m = 5, 
+miceDS <- function(vars=NULL, m = 5,
                     method = NULL,
                     predictorMatrix = NULL,
                     where = NULL,
@@ -268,19 +268,19 @@ miceDS <- function(vars=NULL, m = 5,
                     defaultMethod = c("pmm", "logreg", "polyreg", "polr"),
                     maxit = 5, printFlag = TRUE, seed = NA,
                     data.init = NULL) {
-  
+
   #call <- match.call()
   #check.deprecated(...)
   if (!is.na(seed)) set.seed(seed)
-  
+
   # check form of data and m
-  
+
   if(!is.null(vars)){
     data <- getVarByName(vars)
   } else {
-    data <- eval(parse(text="D")) 
+    data <- eval(parse(text="D"))
   }
-  
+
   data <- check.dataform(data)
   m <- check.m(m)
 
@@ -288,13 +288,13 @@ miceDS <- function(vars=NULL, m = 5,
   mp <- missing(predictorMatrix)
   mb <- missing(blocks)
   mf <- missing(formulas)
-  
+
   # case A
   if (mp & mb & mf) {
     # blocks lead
     blocks <- make.blocksDS(colnames(data))
     predictorMatrix <- make.predictorMatrixDS(data, blocks)
   }
-  
+
   return(list(blocks=blocks, predictorMatrix=predictorMatrix))
 }

@@ -15,7 +15,7 @@ getVarbyFormula(formula, subset = NULL, weight = NULL, family = NULL)
 
 \item{family}{a string character with the name of the error distribution and link function to be used in the analysis.
 If \code{family} is set to 'binomial', it transforms the vector of observed responses \code{y.var}
-into \code{\link[base]{factors}}.
+into \code{\link[base]{factor}}.
 If \code{family} is NULL, it does not transform the data.}
 }
 \value{

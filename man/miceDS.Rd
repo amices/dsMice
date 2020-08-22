@@ -4,11 +4,23 @@
 \alias{miceDS}
 \title{Multivariate Imputation by Chained Equations (MICE)}
 \usage{
-miceDS(vars = NULL, m = 5, method = NULL, predictorMatrix = NULL,
-  where = NULL, blocks = NULL, visitSequence = NULL,
-  formulas = NULL, blots = NULL, post = NULL,
-  defaultMethod = c("pmm", "logreg", "polyreg", "polr"), maxit = 5,
-  printFlag = TRUE, seed = NA, data.init = NULL)
+miceDS(
+  vars = NULL,
+  m = 5,
+  method = NULL,
+  predictorMatrix = NULL,
+  where = NULL,
+  blocks = NULL,
+  visitSequence = NULL,
+  formulas = NULL,
+  blots = NULL,
+  post = NULL,
+  defaultMethod = c("pmm", "logreg", "polyreg", "polr"),
+  maxit = 5,
+  printFlag = TRUE,
+  seed = NA,
+  data.init = NULL
+)
 }
 \arguments{
 \item{m}{Number of multiple imputations. The default is \code{m=5}.}
@@ -113,7 +125,7 @@ values are coded as \code{NA}.}
 functions.}
 }
 \value{
-Returns an S3 object of class \code{\link[=mids-class]{mids}}
+Returns an S3 object of class \code{\link[mice:mids-class]{mids}}
 (multiply imputed data set)
 }
 \description{

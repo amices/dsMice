@@ -8,7 +8,7 @@
 #' @param weight a list or numerical value for weigthed analysis.
 #' @param family a string character with the name of the error distribution and link function to be used in the analysis.
 #' If \code{family} is set to 'binomial', it transforms the vector of observed responses \code{y.var}
-#' into \code{\link[base]{factors}}.
+#' into \code{\link[base]{factor}}.
 #' If \code{family} is NULL, it does not transform the data.
 #'
 #' @return A list with components:
@@ -19,17 +19,17 @@
 #'
 
 getVarbyFormula <- function(formula, subset=NULL, weight=NULL, family=NULL) {
-  
+
   model.formula <- as.formula(formula)
   model <- model.frame(model.formula, subset)
-  
+
   if (is.null(weight)) weight <- 1
   x.vars <- model[-1] * weight
-  
+
   bind.x <- data.matrix(cbind(1, x.vars))
-  
+
   y.var <- model[1]
-  
+
   if(!(is.null(family))){
     if(family=="binomial")  {
       if(class(y.var[[1]])=="character"){
@@ -53,8 +53,8 @@ getVarbyFormula <- function(formula, subset=NULL, weight=NULL, family=NULL) {
   if(is.null(family)) {
     bind.y <- y.var
   }
-  
+
   return(list(x=bind.x, y=bind.y))
-  
+
 }
 
